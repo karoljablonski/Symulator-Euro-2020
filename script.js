@@ -15,18 +15,21 @@ const wales = {
     factor: 3,
     score: 0,
     points: 0,
+    group: "A",
 }
 const switzerland = {
     name: "Switzerland",
     factor: 3,
     score: 0,
     points: 0,
+    group: "A",
 }
 const turkey = {
     name: "Turkey",
     factor: 2,
     score: 0,
     points: 0,
+    group: "A",
 };
 //  ------------- group B
 
@@ -35,24 +38,28 @@ const belgium = {
     factor: 6,
     score: 0,
     points: 0,
+    group: "B",
 };
 const denmark = {
     name: "Denmark",
     factor: 4,
     score: 0,
     points: 0,
+    group: "B",
 }
 const finland = {
     name: "Finland",
     factor: 2,
     score: 0,
     points: 0,
+    group: "B",
 }
 const russia = {
     name: "Russia",
     factor: 3,
     score: 0,
     points: 0,
+    group: "B",
 };
 
 //  ------------- group C
@@ -62,24 +69,28 @@ const nederlands = {
     factor: 5,
     score: 0,
     points: 0,
+    group: "C",
 };
 const austria = {
     name: "Austria",
     factor: 3,
     score: 0,
     points: 0,
+    group: "C",
 }
 const ukraine = {
     name: "Ukraine",
     factor: 3,
     score: 0,
     points: 0,
+    group: "C",
 }
 const north_macedonia = {
     name: "North Macedonia",
     factor: 2,
     score: 0,
     points: 0,
+    group: "C",
 };
 
 //  ------------- group D
@@ -88,24 +99,28 @@ const england = {
     factor: 5,
     score: 0,
     points: 0,
+    group: "D",
 };
 const croatia = {
     name: "Croatia",
     factor: 4,
     score: 0,
     points: 0,
+    group: "D",
 }
 const czech_republic = {
     name: "Czech Republic",
     factor: 3,
     score: 0,
     points: 0,
+    group: "D",
 }
 const scotland = {
     name: "Scotland",
     factor: 2,
     score: 0,
     points: 0,
+    group: "D",
 };
 // ------------- groupE
 const poland = {
@@ -113,24 +128,28 @@ const poland = {
     factor: 3,
     score: 0,
     points: 0,
+    group: "E",
 };
 const spain = {
     name: "Spain",
     factor: 5,
     score: 0,
     points: 0,
+    group: "E",
 };
 const sweden = {
     name: "Sweden",
     factor: 3,
     score: 0,
     points: 0,
+    group: "E",
 };
 const slovakia = {
     name: "Slovakia",
     factor: 2,
     score: 0,
     points: 0,
+    group: "E",
 };
 //  ------------- group F
 const france = {
@@ -138,24 +157,28 @@ const france = {
     factor: 6,
     score: 0,
     points: 0,
+    group: "F",
 };
 const germany = {
     name: "Germany",
     factor: 5,
     score: 0,
     points: 0,
+    group: "F",
 }
 const portugal = {
     name: "Portugal",
     factor: 5,
     score: 0,
     points: 0,
+    group: "F",
 }
 const hungary = {
     name: "Hungary",
     factor: 2,
     score: 0,
     points: 0,
+    group: "F",
 };
 //poszczególne grupy:
 const groupA = [italy, switzerland, wales, turkey];
@@ -191,9 +214,7 @@ function match(teamA, teamB){
     console.log(`Punkty: ${teamA.name} - ${teamA.points}, ${teamB.name} - ${teamB.points}`);
     console.log('------');
 };
-
-
-
+//group solve wymaga dodania do sortowania, sortowania po ilosci bramek
 function groupSolve(group){
     match(group[0], group[1]);
     match(group[2], group[3]);
@@ -205,12 +226,13 @@ function groupSolve(group){
     console.log(group);
     console.log("---------------");
 };
+
 groups.forEach((group, index)=>{
     console.log(`Rozgrywki grupy ${groupsNames[index]}`)
     groupSolve(group);
 });
 
-//nowa funkcja meczu, zeby nie dodawalo bramek i punktow dla druzyn(w budowie): 
+//nowa funkcja meczu, zeby nie dodawalo bramek i punktow dla druzyn: 
 function finalsMatch(teamA, teamB){
     console.log(`Faza pucharowa. Pierwsza druzyna to ${teamA.name}, druga druzyna to ${teamB.name}`);
     let matchWinner;
@@ -305,6 +327,7 @@ function finalsMatch(teamA, teamB){
 
     };
 };
+
 //funkcja finalsMatch() wykonuje mecze pucharowe, do ogarniecia kod, zrobiony na tyle zeby dzialal :D //edit: kod w sumie ogarniety, kwestia dorobienia wrzucania info do DOM;
 const thirdPlacesArray = [];
 function thirdPlaces(subject){
@@ -313,45 +336,64 @@ function thirdPlaces(subject){
     };
     //zajebista metoda sortowania, tutaj najpierw sortuje po punktach, a jesli punkty sa rowne, sprawdza liczbe strzelonych bramek i sortuje wg nich.
     thirdPlacesArray.sort((a, b) => a.points > b.points ? -1 : (a.points === b.points)? ((a.score > b.score)? -1 : 1) : 1);
-    thirdPlacesArray.pop(); thirdPlacesArray.pop();
-    console.log(thirdPlacesArray);
+    thirdPlacesArray.pop(); 
+    thirdPlacesArray.pop();
 };
 
-
+let qualifier1;
+let qualifier2;
+let qualifier3;
+let qualifier4;
+function thirdPlacesQualifiers(oppositeGroup){
+    //funkcja ma wylonic do ktorej pary dopisac 3 miejscowicza, chyba najlepiej zapisac do globalnej zmiennej
+    //na wikipedii jest tabelka z wszelkimi mozliwymi rozwiazaniami co do 1/8, trzeba na chama przepisac, nie ma innej sily
+};
 
 //faza pucharowa:
 
 //1/8 finalu:
-//trzeba sprawic, by zespol dolaczany z 3 miejsca, byl dolaczony do pary do zespolu pochodzacego z kazdej innej grupy, niz wygrany; czyli: wygrany z grupy C moze zostac dolaczony z zespolem z trzeciego miejsca z konkretnych grup (A, B, D, E, F). i tak dalej z nastepnymi zwyciezcami.: 1 miejsce z B moze byc z 3 miejscem z A,C,D,E,F. wiec mozna z funkcji wylaniajacej tabelke 3 miejsc, wyciagnac tylko te, ktore faktycznie przechodza (usunac dwa ostatnie na przyklad). a nastepnie w funkcji roundof16solve zrobic sprawdzenie czy zespol nie jest/jest z danej grupy i przylaczac.
 
-//na razie zrobilem tak: tabelka 3 miejsc wylania tablice 4 zespolow z 3 miejsc, ktore przechodza dalej i maja zostac przydzielone do zwyciescow grup. 
 
-// metodą .includes(name) moge sprawdzic, czy name/3 miejsce znajduje sie w danej tablicy. czyli, gdy bede chcial przypisac zespol do zwyciezcy grupy X, bede musial zapisac X.includes(tablica zespolow z 3 miejsc). moznaby sprobowac zrobic cos ala podwojne sprawdzenie w jednej linijce -> iterowac po grupach od a do f i sprawdzac, czy dany zespol z 3 miejsca pasuje. i mozna zrobic to w sposob odwrocony -> jesli a.includes(zespol 1 z)
 // 
 thirdPlaces(groups);
-function roundOf16Solve(groupStageWinners){
-    finalsMatch(groupStageWinners[0][1], groupStageWinners[1][1]);
-    finalsMatch(groupStageWinners[0][0], groupStageWinners[2][1]);
-    finalsMatch(groupStageWinners[2][0], thirdPlacesArray[0]);
-    finalsMatch(groupStageWinners[1][0], thirdPlacesArray[1]);
-    finalsMatch(groupStageWinners[3][1], groupStageWinners[4][1]);
-    finalsMatch(groupStageWinners[5][0], thirdPlacesArray[2]);
-    finalsMatch(groupStageWinners[3][0], groupStageWinners[5][1]);
-    finalsMatch(groupStageWinners[4][0], thirdPlacesArray[3]);
+//na tym etapie mamy zwyciezcow grup, drugie miejsca z grup, i wylonionych tych co przechodza z trzecich miejsc.
+console.log("--------------------1/8 FINALS--------------------");
+function roundOf16Solve(groupStageWinners, q1, q2, q3, q4){
+
+    console.log(
+groupStageWinners[0][1], groupStageWinners[1][1],
+groupStageWinners[0][0], groupStageWinners[2][1],
+groupStageWinners[2][0], q1,
+groupStageWinners[1][0], q2,
+groupStageWinners[3][1], groupStageWinners[4][1],
+groupStageWinners[5][0], q3,
+groupStageWinners[3][0], groupStageWinners[5][1],
+groupStageWinners[4][0], q4
+);
+    // finalsMatch(groupStageWinners[0][1], groupStageWinners[1][1]);
+    // finalsMatch(groupStageWinners[0][0], groupStageWinners[2][1]);
+    // finalsMatch(groupStageWinners[2][0], q1);
+    // finalsMatch(groupStageWinners[1][0], q2);
+    // finalsMatch(groupStageWinners[3][1], groupStageWinners[4][1]);
+    // finalsMatch(groupStageWinners[5][0], q3);
+    // finalsMatch(groupStageWinners[3][0], groupStageWinners[5][1]);
+    // finalsMatch(groupStageWinners[4][0], q4);
 };
-roundOf16Solve(groups);
+// roundOf16Solve(groups, qualifier1, qualifier2, qualifier3, qualifier4);
 
 //29.06.2021: problem - funkcja przypisywania par 1/8 moze dopuscic do gry pary pochodzacej z tej samej grupy, trzeba to zmienic
 
+//zasada przypisania zespol do 1/8 finalu:
 // A 2 - B 2
 // A 1 - C 2
-// C 1 - 3RD PLACE D
-// B 1 - 3RD PLACE F
+// C 1 - 3RD PLACE D/E/F - funkcja d
+// B 1 - 3RD PLACE A /D/E/F - funkcja a
 // D 2 - E 2
-// F 1 - 3RD PLACE A/B
+// F 1 - 3RD PLACE A/B/C - funkcja c
 // D 1 - F 2 
-// E 1 - 3RD PLACE C
-
+// E 1 - 3RD PLACE A/B/C/ D - funkcja f/
+//AbCDeF
+//a3, b2, c2, d3, e2, f2
 
 
 
