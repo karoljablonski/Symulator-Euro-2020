@@ -1,3 +1,5 @@
+//git commit naming: developing process divided for 3 blocks: html, css, js.
+
 //rozegranie grup po kolei, kazdy mecz jeden po drugim, zeby zachowac odpowiednie przypisywanie kolenych zespolow do kolejnych drabinek. nastepnie rozegranie grupy pucharowej.
 //do tego feature dodania druzyny jako "czarnego konia"
 
@@ -190,9 +192,16 @@ const groupF = [germany, france, hungary, portugal];
 
 //tablica groups tablic poszczegolnych grup:
 const groups = [groupA, groupB, groupC, groupD, groupE, groupF];
-const groupsNames = ["Group A", "Group B", "Group C", "Group D", "Group E", "Group F"]
+const groupsNames = ["Group A", "Group B", "Group C", "Group D", "Group E", "Group F"];
+
+//zmienne przygotowane do przypisania druzyn awansujacych z 3 miejsc:
+let qualifier1;
+let qualifier2;
+let qualifier3;
+let qualifier4;
 
 
+//funkcja meczu w grupie:
 function match(teamA, teamB){
     console.log(`Pierwsza druzyna to ${teamA.name}, druga druzyna to ${teamB.name}.`);
     const teamAgoals = Math.floor(Math.random()*teamA.factor);
@@ -226,11 +235,6 @@ function groupSolve(group){
     console.log(group);
     console.log("---------------");
 };
-
-groups.forEach((group, index)=>{
-    console.log(`Rozgrywki grupy ${groupsNames[index]}`)
-    groupSolve(group);
-});
 
 //nowa funkcja meczu, zeby nie dodawalo bramek i punktow dla druzyn: 
 function finalsMatch(teamA, teamB){
@@ -340,22 +344,74 @@ function thirdPlaces(subject){
     thirdPlacesArray.pop();
 };
 
-let qualifier1;
-let qualifier2;
-let qualifier3;
-let qualifier4;
-function thirdPlacesQualifiers(oppositeGroup){
-    //funkcja ma wylonic do ktorej pary dopisac 3 miejscowicza, chyba najlepiej zapisac do globalnej zmiennej
-    //na wikipedii jest tabelka z wszelkimi mozliwymi rozwiazaniami co do 1/8, trzeba na chama przepisac, nie ma innej sily
-};
 
+function thirdPlacesQualifiers(){
+    //funkcja ma wylonic do ktorej pary dopisac 3 miejscowicza, chyba najlepiej zapisac do globalnej zmiennej
+    let b1, e1, f1, c1;
+    if(thirdPlacesArray.find(element => element.group === "A")){
+        if(thirdPlacesArray.find(element => element.group === "B")){
+            if(thirdPlacesArray.find(element => element.group === "C")){
+                b1 = thirdPlacesArray.find(element => element.group === "A");
+                e1 = thirdPlacesArray.find(element => element.group === "B");
+                f1 = thirdPlacesArray.find(element => element.group === "C");
+                if(thirdPlacesArray.find(element => element.group === "D")){
+                    c1 = thirdPlacesArray.find(element => element.group === "D");
+                    return;
+                } else if(thirdPlacesArray.find(element => element.group === "E")){
+                    c1 = thirdPlacesArray.find(element => element.group === "E");
+                    return;
+                } else {
+                    c1 = thirdPlacesArray.find(element => element.group === "F");
+                    return;
+                };
+            };
+            if(thirdPlacesArray.find(element => element.group === "D")){
+                e1 = thirdPlacesArray.find(element => element.group === "A");
+                f1 = thirdPlacesArray.find(element => element.group === "B");
+                b1 = thirdPlacesArray.find(element => element.group === "D");
+                if(thirdPlacesArray.find(element => element.group === "E")){
+                    c1 = thirdPlacesArray.find(element => element.group === "E");
+                    return;
+                } else {
+                    c1 = thirdPlacesArray.find(element => element.group === "F");
+                    return;
+                };
+            };
+            if(thirdPlacesArray.find(element => element.group === "E")){
+                f1 = thirdPlacesArray.find(element => element.group === "A");
+                e1 = thirdPlacesArray.find(element => element.group === "B");
+                b1 = thirdPlacesArray.find(element => element.group === "E");
+                c1 = thirdPlacesArray.find(element => element.group === "F");
+            };
+        };
+    };
+
+    qualifier1 = c1;
+    qualifier2 = b1;
+    qualifier3 = f1;
+    qualifier4 = e1;
+};
+// - - - - - - - Zaczynamy Euro! - - - - - - - 
+//ponizej petla rozgrywajace faze grupowa:
+groups.forEach((group, index)=>{
+    console.log(`Rozgrywki grupy ${groupsNames[index]}`)
+    groupSolve(group);
+});
+
+//funkcja wylaniajaca 4 zespoly z 3 miejsc, ktore przechodza dalej:
+thirdPlaces(groups);
+
+//przypisanie 3-miejscowiczow do par do 1/8 finalu:
+console.log(thirdPlacesArray);
+thirdPlacesQualifiers();
+console.log(qualifier1 + ", " + qualifier2 + ", " + qualifier3 + ", " + qualifier4);
 //faza pucharowa:
 
 //1/8 finalu:
 
 
 // 
-thirdPlaces(groups);
+
 //na tym etapie mamy zwyciezcow grup, drugie miejsca z grup, i wylonionych tych co przechodza z trzecich miejsc.
 console.log("--------------------1/8 FINALS--------------------");
 function roundOf16Solve(groupStageWinners, q1, q2, q3, q4){
