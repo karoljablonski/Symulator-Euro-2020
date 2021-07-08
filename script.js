@@ -452,6 +452,8 @@ function thirdPlacesQualifiers(){
     qualifier3 = f1.name;
     qualifier4 = e1.name;
 };
+
+// -------------------------------------PRZEJRZEC JESZCZE RAZ THIRDPLACESQUALIFIERS(), W JEDNYM PRZYPADKU WYPLULO Q2 I Q3 JAKO WALES! TAK SAMO BYLO Z CROATIA ALE DLA q1 i q2! czyli problem z grupa A i D!
 // - - - - - - - Zaczynamy Euro! - - - - - - - 
 //ponizej petla rozgrywajace faze grupowa:
 groups.forEach((group, index)=>{
@@ -497,7 +499,7 @@ groupStageWinners[4][0], q4
     // finalsMatch(groupStageWinners[3][0], groupStageWinners[5][1]);
     // finalsMatch(groupStageWinners[4][0], q4);
 };
-// roundOf16Solve(groups, qualifier1, qualifier2, qualifier3, qualifier4);
+roundOf16Solve(groups, qualifier1, qualifier2, qualifier3, qualifier4);
 
 //29.06.2021: problem - funkcja przypisywania par 1/8 moze dopuscic do gry pary pochodzacej z tej samej grupy, trzeba to zmienic
 
