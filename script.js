@@ -201,7 +201,7 @@ let qualifier3;
 let qualifier4;
 
 
-//funkcja meczu w grupie:
+//funkcja meczu w fazie grupowej:
 function match(teamA, teamB){
     console.log(`Pierwsza druzyna to ${teamA.name}, druga druzyna to ${teamB.name}.`);
     const teamAgoals = Math.floor(Math.random()*teamA.factor);
@@ -223,7 +223,7 @@ function match(teamA, teamB){
     console.log(`Punkty: ${teamA.name} - ${teamA.points}, ${teamB.name} - ${teamB.points}`);
     console.log('------');
 };
-//group solve wymaga dodania do sortowania, sortowania po ilosci bramek
+//funkcja rozgrywająca mecze w danej grupie; wymaga dodania do sortowania, sortowania po ilosci bramek
 function groupSolve(group){
     match(group[0], group[1]);
     match(group[2], group[3]);
@@ -236,7 +236,7 @@ function groupSolve(group){
     console.log("---------------");
 };
 
-//nowa funkcja meczu, zeby nie dodawalo bramek i punktow dla druzyn: 
+//funkcja meczu w fazie pucharowej (nie dodaje bramek i punktow dla druzyn, rozgrywa dogrywke/karne w przypadku remisu): 
 function finalsMatch(teamA, teamB){
     console.log(`Faza pucharowa. Pierwsza druzyna to ${teamA.name}, druga druzyna to ${teamB.name}`);
     let matchWinner;
@@ -332,7 +332,7 @@ function finalsMatch(teamA, teamB){
     };
 };
 
-//funkcja finalsMatch() wykonuje mecze pucharowe, do ogarniecia kod, zrobiony na tyle zeby dzialal :D //edit: kod w sumie ogarniety, kwestia dorobienia wrzucania info do DOM;
+//funkcja zbierająca zespoly z 3 miejsc z grup, sortujaca wg puntow i bramek, oraz wylonienie 4 z 6 druzyn, ktore przechodza dalej (sortowanie):
 const thirdPlacesArray = [];
 function thirdPlaces(subject){
     for(let i = 0; i < subject.length; i++){
@@ -347,7 +347,7 @@ function thirdPlaces(subject){
 
 function thirdPlacesQualifiers(){
     //funkcja ma wylonic do ktorej pary dopisac 3 miejscowicza, chyba najlepiej zapisac do globalnej zmiennej
-    let b1, e1, f1, c1;
+    let b1; let e1; let f1; let c1;
     if(thirdPlacesArray.find(element => element.group === "A")){
         if(thirdPlacesArray.find(element => element.group === "B")){
             if(thirdPlacesArray.find(element => element.group === "C")){
@@ -356,13 +356,13 @@ function thirdPlacesQualifiers(){
                 f1 = thirdPlacesArray.find(element => element.group === "C");
                 if(thirdPlacesArray.find(element => element.group === "D")){
                     c1 = thirdPlacesArray.find(element => element.group === "D");
-                    return;
+                    // return;
                 } else if(thirdPlacesArray.find(element => element.group === "E")){
                     c1 = thirdPlacesArray.find(element => element.group === "E");
-                    return;
+                    // return;
                 } else {
                     c1 = thirdPlacesArray.find(element => element.group === "F");
-                    return;
+                    // return;
                 };
             };
             if(thirdPlacesArray.find(element => element.group === "D")){
@@ -371,10 +371,10 @@ function thirdPlacesQualifiers(){
                 b1 = thirdPlacesArray.find(element => element.group === "D");
                 if(thirdPlacesArray.find(element => element.group === "E")){
                     c1 = thirdPlacesArray.find(element => element.group === "E");
-                    return;
+                    // return;
                 } else {
                     c1 = thirdPlacesArray.find(element => element.group === "F");
-                    return;
+                    // return;
                 };
             };
             if(thirdPlacesArray.find(element => element.group === "E")){
@@ -382,14 +382,75 @@ function thirdPlacesQualifiers(){
                 e1 = thirdPlacesArray.find(element => element.group === "B");
                 b1 = thirdPlacesArray.find(element => element.group === "E");
                 c1 = thirdPlacesArray.find(element => element.group === "F");
+                // return;
             };
+        };
+        if(thirdPlacesArray.find(element => element.group === "C")){
+            f1 = thirdPlacesArray.find(element => element.group === "A");
+            e1 = thirdPlacesArray.find(element => element.group === "C");
+            if(thirdPlacesArray.find(element => element.group === "D")){
+                c1 = thirdPlacesArray.find(element => element.group === "D");
+                if(thirdPlacesArray.find(element => element.group === "E")){
+                    b1 = thirdPlacesArray.find(element => element.group === "E");
+                    // return;
+                } else if(thirdPlacesArray.find(element => element.group === "F")){
+                    b1 = thirdPlacesArray.find(element => element.group === "F");
+                    // return;
+                };
+            };
+            if(thirdPlacesArray.find(element => element.group === "E" && thirdPlacesArray.find(element => element.group === "F"))){
+                b1 = thirdPlacesArray.find(element => element.group === "E");
+                c1 = thirdPlacesArray.find(element => element.group === "F");
+                // return;
+            };
+        };
+        if(thirdPlacesArray.find(element => element.group === "D") && thirdPlacesArray.find(element => element.group === "E") && thirdPlacesArray.find(element => element.group === "F")){
+                f1 = thirdPlacesArray.find(element => element.group === "A");
+                e1 = thirdPlacesArray.find(element => element.group === "D");
+                b1 = thirdPlacesArray.find(element => element.group === "E");
+                c1 = thirdPlacesArray.find(element => element.group === "F");
+                // return;
+        };
+    };
+    if(!thirdPlacesArray.find(element => element.group === "A")){
+        if(thirdPlacesArray.find(element => element.group === "B") && thirdPlacesArray.find(element => element.group === "F")){
+            f1 = thirdPlacesArray.find(element => element.group === "B");
+            b1 = thirdPlacesArray.find(element => element.group === "F");
+            if(thirdPlacesArray.find(element => element.group === "C")){
+                e1 = thirdPlacesArray.find(element => element.group === "C");
+                if(thirdPlacesArray.find(element => element.group === "D")){
+                    c1 = thirdPlacesArray.find(element => element.group === "D");
+                    // return;
+                } else if(thirdPlacesArray.find(element => element.group === "E")){
+                    c1 = thirdPlacesArray.find(element => element.group === "E");
+                    // return;
+                };
+            };
+            if(thirdPlacesArray.find(element => element.group === "D") && thirdPlacesArray.find(element => element.group === "E")){
+                e1 = thirdPlacesArray.find(element => element.group === "D");
+                c1 = thirdPlacesArray.find(element => element.group === "E");
+                // return;
+            };
+        };
+        if(thirdPlacesArray.find(element => element.group === "B") && thirdPlacesArray.find(element => element.group === "C") && thirdPlacesArray.find(element => element.group === "D") && thirdPlacesArray.find(element => element.group === "E")){
+            f1 = thirdPlacesArray.find(element => element.group === "C");
+            e1 = thirdPlacesArray.find(element => element.group === "B");
+            b1 = thirdPlacesArray.find(element => element.group === "E");
+            c1 = thirdPlacesArray.find(element => element.group === "D");
+            // return;
+        } else if(thirdPlacesArray.find(element => element.group === "C") && thirdPlacesArray.find(element => element.group === "D") && thirdPlacesArray.find(element => element.group === "E") && thirdPlacesArray.find(element => element.group === "F")){
+            f1 = thirdPlacesArray.find(element => element.group === "C");
+            e1 = thirdPlacesArray.find(element => element.group === "D");
+            b1 = thirdPlacesArray.find(element => element.group === "F");
+            c1 = thirdPlacesArray.find(element => element.group === "E");
+            // return;
         };
     };
 
-    qualifier1 = c1;
-    qualifier2 = b1;
-    qualifier3 = f1;
-    qualifier4 = e1;
+    qualifier1 = c1.name;
+    qualifier2 = b1.name;
+    qualifier3 = f1.name;
+    qualifier4 = e1.name;
 };
 // - - - - - - - Zaczynamy Euro! - - - - - - - 
 //ponizej petla rozgrywajace faze grupowa:
@@ -402,8 +463,9 @@ groups.forEach((group, index)=>{
 thirdPlaces(groups);
 
 //przypisanie 3-miejscowiczow do par do 1/8 finalu:
-console.log(thirdPlacesArray);
-thirdPlacesQualifiers();
+// console.log(thirdPlacesArray);
+thirdPlacesQualifiers(thirdPlacesArray);
+
 console.log(qualifier1 + ", " + qualifier2 + ", " + qualifier3 + ", " + qualifier4);
 //faza pucharowa:
 
