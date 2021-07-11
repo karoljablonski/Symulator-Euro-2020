@@ -200,6 +200,14 @@ let qualifier1;
 let qualifier2;
 let qualifier3;
 let qualifier4;
+//tablica zwyciezcow z 1/8 finalu:
+let quarterfinals;
+//tablica zwyciezcow z 1/4 finalu:
+let semifinals;
+//tablica zwyciezcow z polfinalow:
+let finals;
+//zmienna zwycięzcy turnieju:
+let tournamentWinner;
 
 
 //funkcja meczu w fazie grupowej:
@@ -245,17 +253,17 @@ function finalsMatch(teamA, teamB){
     const teamBgoals = Math.floor(Math.random()*teamB.factor);
     if(teamAgoals > teamBgoals){
         console.log(`Wygrali ${teamA.name}, zdobywając ${teamAgoals} bramek.`);
-        matchWinner = teamA.name;
+        matchWinner = teamA;
         
         console.log(`Wynik to ${teamA.name} ${teamAgoals} : ${teamBgoals} ${teamB.name}`);
-        console.log(`Dalej przechodzi: ${matchWinner}`);
+        console.log(`Dalej przechodzi: ${matchWinner.name}`);
         console.log('------');
         // break;
     } else if(teamBgoals > teamAgoals){
         console.log(`Wygrali ${teamB.name}, zdobywając ${teamBgoals} bramek.`);
-        matchWinner = teamB.name;
+        matchWinner = teamB;
         console.log(`Wynik to ${teamA.name} ${teamAgoals} : ${teamBgoals} ${teamB.name}`);
-        console.log(`Dalej przechodzi: ${matchWinner}`);
+        console.log(`Dalej przechodzi: ${matchWinner.name}`);
         console.log('------');
         // break;
     } else {
@@ -270,16 +278,16 @@ function finalsMatch(teamA, teamB){
         const teamBgoalsExtraTime = teamBgoals + Math.floor(Math.random()*teamB.factor);
         if(teamAgoalsExtraTime > teamBgoalsExtraTime){
             console.log(`Dogrywkę wygrali ${teamA.name}`);
-            matchWinner = teamA.name;
-            console.log(`Wynik dogrywki to ${teamA.name} ${teamAgoalsExtraTime} : ${teamBgoalsExtraTime} ${teamB.name}`);
-            console.log(`Dalej przechodzi: ${matchWinner}`);
+            matchWinner = teamA;
+            console.log(`Wynik po dogrywce to ${teamA.name} ${teamAgoalsExtraTime} : ${teamBgoalsExtraTime} ${teamB.name}`);
+            console.log(`Dalej przechodzi: ${matchWinner.name}`);
             console.log('------');
             // break;
         } else if(teamBgoalsExtraTime > teamAgoalsExtraTime){
             console.log(`Dogrywkę wygrali ${teamB.name}`);
-            matchWinner = teamB.name;
-            console.log(`Wynik dogrywki to ${teamA.name} ${teamAgoalsExtraTime} : ${teamBgoalsExtraTime} ${teamB.name}`);
-            console.log(`Dalej przechodzi: ${matchWinner}`);
+            matchWinner = teamB;
+            console.log(`Wynik po dogrywce to ${teamA.name} ${teamAgoalsExtraTime} : ${teamBgoalsExtraTime} ${teamB.name}`);
+            console.log(`Dalej przechodzi: ${matchWinner.name}`);
             console.log('------');
             // break;
         } else {
@@ -304,9 +312,11 @@ function finalsMatch(teamA, teamB){
             };
             if(penaltiesScoreA > penaltiesScoreB){
                 console.log(`Won ${teamA.name}`);
+                matchWinner = teamA;
 
             } else if(penaltiesScoreB > penaltiesScoreA){
                 console.log(`Won ${teamB.name}`);
+                matchWinner = teamB;
             } else {
                 console.log('Remis w karnych wowwww');
                 console.log("gramy dalej:");
@@ -317,8 +327,10 @@ function finalsMatch(teamA, teamB){
                 } while (penaltiesScoreA == penaltiesScoreB);
                 if(penaltiesScoreA > penaltiesScoreB){
                     console.log(`Gratulacje, ostatecznie wygrywają ${teamA.name}`);
+                    matchWinner = teamA;
                 } else {
                     console.log(`Gratulacje, ostatecznie wygrywają ${teamB.name}`);
+                    matchWinner = teamB;
                 };
                 
             };
@@ -331,6 +343,8 @@ function finalsMatch(teamA, teamB){
         
 
     };
+    console.log("--------------------------------");
+    return matchWinner;
 };
 
 //funkcja zbierająca zespoly z 3 miejsc z grup, sortujaca wg puntow i bramek, oraz wylonienie 4 z 6 druzyn, ktore przechodza dalej (sortowanie):
@@ -473,43 +487,56 @@ thirdPlacesQualifiers(thirdPlacesArray);
 //na tym etapie mamy zwyciezcow grup, drugie miejsca z grup, i wylonionych tych co przechodza z trzecich miejsc.
 console.log("--------------------1/8 FINALS--------------------");
 function roundOf16Solve(groupStageWinners, q1, q2, q3, q4){
-//     console.log(
-// groupStageWinners[0][1], groupStageWinners[1][1],
-// groupStageWinners[0][0], groupStageWinners[2][1],
-// groupStageWinners[2][0], q1,
-// groupStageWinners[1][0], q2,
-// groupStageWinners[3][1], groupStageWinners[4][1],
-// groupStageWinners[5][0], q3,
-// groupStageWinners[3][0], groupStageWinners[5][1],
-// groupStageWinners[4][0], q4
-// );
-    finalsMatch(groupStageWinners[0][1], groupStageWinners[1][1]);
-    finalsMatch(groupStageWinners[0][0], groupStageWinners[2][1]);
-    finalsMatch(groupStageWinners[2][0], q1);
-    finalsMatch(groupStageWinners[1][0], q2);
-    finalsMatch(groupStageWinners[3][1], groupStageWinners[4][1]);
-    finalsMatch(groupStageWinners[5][0], q3);
-    finalsMatch(groupStageWinners[3][0], groupStageWinners[5][1]);
-    finalsMatch(groupStageWinners[4][0], q4);
+    const quarter1 = finalsMatch(groupStageWinners[1][0], q2);
+    const quarter2 = finalsMatch(groupStageWinners[0][0], groupStageWinners[2][1]);
+    const quarter3 = finalsMatch(groupStageWinners[5][0], q3);
+    const quarter4 = finalsMatch(groupStageWinners[3][1], groupStageWinners[4][1]);
+    const quarter5 = finalsMatch(groupStageWinners[4][0], q4);
+    const quarter6 = finalsMatch(groupStageWinners[3][0], groupStageWinners[5][1]);
+    const quarter7 = finalsMatch(groupStageWinners[2][0], q1);
+    const quarter8 = finalsMatch(groupStageWinners[0][1], groupStageWinners[1][1]);
+    quarterfinals = [quarter1, quarter2, quarter3, quarter4, quarter5, quarter6, quarter7, quarter8];
+    console.log(quarterfinals);
 };
 roundOf16Solve(groups, qualifier1, qualifier2, qualifier3, qualifier4);
 
-//29.06.2021: problem - funkcja przypisywania par 1/8 moze dopuscic do gry pary pochodzacej z tej samej grupy, trzeba to zmienicZROBIONE!
-
-//zasada przypisania zespol do 1/8 finalu:
-// A 2 - B 2
-// A 1 - C 2
-// C 1 - 3RD PLACE D/E/F - funkcja d
-// B 1 - 3RD PLACE A /D/E/F - funkcja a
-// D 2 - E 2
-// F 1 - 3RD PLACE A/B/C - funkcja c
-// D 1 - F 2 
-// E 1 - 3RD PLACE A/B/C/ D - funkcja f/
-//AbCDeF
-//a3, b2, c2, d3, e2, f2
 
 
+// - - - - - - - 1/4 FINALS - - - - - - - 
 
+function roundOf8Solve(solved16){
+    console.log('----------------------1/4 finals------------------------');
+    console.log(quarterfinals);
+    const semi1 = finalsMatch(solved16[0], solved16[1]);
+    const semi2 = finalsMatch(solved16[2], solved16[3]);
+    const semi3 = finalsMatch(solved16[4], solved16[5]);
+    const semi4 = finalsMatch(solved16[6], solved16[7]);
+    semifinals = [semi1, semi2, semi3, semi4];
+    console.log(semi1, semi2,  semi3, semi4);
+};
+roundOf8Solve(quarterfinals);
+
+// - - - - - - - SEMI-FINALS - - - - - - - 
+
+function roundOf4Solve(solved8){
+    console.log('----------------------1/2 finals------------------------');
+    const finalist1 = finalsMatch(solved8[0], solved8[1]);
+    const finalist2 = finalsMatch(solved8[2], solved8[3]);
+    finals = [finalist1, finalist2];
+    console.log(finalist1, finalist2);
+};
+roundOf4Solve(semifinals);
+
+// - - - - - - - FINALS - - - - - - - 
+
+function greatFinal(solvedSemi){
+    console.log('----------------------GREAT FINAL------------------------');
+    tournamentWinner = finalsMatch(solvedSemi[0], solvedSemi[1]);
+    console.log(`ZWYCIĘZCĄ TURNIEJU ZOSTALI: ${tournamentWinner.name}`);
+}
+greatFinal(finals);
+//29.06.2021: problem - funkcja przypisywania par 1/8 moze dopuscic do gry pary pochodzacej z tej samej grupy, trzeba to zmienic
+//11.07.2021: ZROBIONE!
 
 // <-- pomysl na dzialanie na stronce -->
 // mozna zrobic przycisk "rozpocznij turniej" ktory by symulowal caly turniej, i pozniej dawac buttony do klikania zeby "wprowadzac wyniki" gdy uzytkownik mialby wpisane "rozegraj faze grupowa" a faktycznie dodawaloby odpowiednie zmienne do elementow html.
