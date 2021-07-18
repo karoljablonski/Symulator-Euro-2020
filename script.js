@@ -476,7 +476,7 @@ groups.forEach((group, index)=>{
 thirdPlaces(groups);
 
 //przypisanie 3-miejscowiczow do par do 1/8 finalu:
-// console.log(thirdPlacesArray);
+console.log(thirdPlacesArray);
 thirdPlacesQualifiers(thirdPlacesArray);
 
 // console.log(qualifier1 + ", " + qualifier2 + ", " + qualifier3 + ", " + qualifier4);
